@@ -60,32 +60,36 @@ error_t gameProgress() {
 	clcd_entry_mode_set(1, 0);
 	clcd_set_DDRAM(0x00);
 	clcd_write_data('R');
+	usleep(50000);
+
 	clcd_set_DDRAM( 0x40 );
 	clcd_write_data('R');
+	usleep(50000);
+
 	int key;
 	int shape = 82; 
 	while(1) 
 	{ 
 		// 아무키나 눌렸다면 출력 후 종료. 
-		if(kbhit()) 
-		{ 
-				// 입력된 키정보 얻기. 
-				key = _getch(); 
-				switch (key)
-				{
-				case 'w':
-				case 'W':
-					shape = 74;
-					break;
-				case 's':
-				case 'S':
-					shape = 83;
+		// if(kbhit()) 
+		// { 
+		// 		// 입력된 키정보 얻기. 
+		// 		key = _getch(); 
+		// 		switch (key)
+		// 		{
+		// 		case 'w':
+		// 		case 'W':
+		// 			shape = 74;
+		// 			break;
+		// 		case 's':
+		// 		case 'S':
+		// 			shape = 83;
 
-				default:
-					break;
-				}
-		}
-		else{
+		// 		default:
+		// 			break;
+		// 		}
+		// }
+		// else{
 			dequeue(obstacles);
 			enqueue(obstacles, show_obstacle());
 			int i = obstacles->front;
@@ -96,49 +100,58 @@ error_t gameProgress() {
 			case 82:
 				clcd_set_DDRAM(0x00);
 				clcd_write_data('R');
+				usleep(100000);
 				clcd_set_DDRAM( 0x40 );
 				clcd_write_data('R');
+				usleep(100000);
 				break;
 			case 74:
 				clcd_set_DDRAM(0x00);
 				clcd_write_data('J');
+				usleep(100000);
 				clcd_set_DDRAM( 0x40 );
 				clcd_write_data(' ');
+				usleep(100000);
 				break;
 			case 83:
 				clcd_set_DDRAM(0x00);
 				clcd_write_data(' ');
+				usleep(100000);
 				clcd_set_DDRAM( 0x40 );
 				clcd_write_data('S');
+				usleep(100000);
 				break;
 			default:
 				break;
 			}
-			
 			do
 			{
 				i = (i + 1) % MAX_SIZE;
 				int c = obstacles->data[i];
 				if(c == '#'){
 					clcd_write_data(' ');
+					usleep(100000);
 					clcd_set_DDRAM(0x01 + cmd);
 					clcd_write_data(c);
+					usleep(100000);
 					clcd_set_DDRAM(0x41 + cmd + 1);
 				}
 				else{
 					clcd_set_DDRAM(0x01 + cmd);
 					clcd_write_data(' ');
+					usleep(100000);
 					clcd_set_DDRAM(0x41 + cmd);
 					clcd_write_data(c);
+					usleep(100000);
 				}
 				if(i == obstacles->rear)
 					break;
 				cmd++;
 			} while (i != obstacles->front);
 			shape = 82;
-			usleep(100000);
+			//usleep(500000);
 		}
-	}		
+//	}		
 	return SUCCESS;
 }
 
