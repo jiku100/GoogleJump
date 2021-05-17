@@ -5,7 +5,10 @@ SRCS		= ./src/main.c \
 				./src/random.c\
 				./src/queue.c\
 				./src/clcd.c\
-				./src/utils.c
+				./src/utils.c\
+				./src/game.c\
+				./src/dot.c\
+				./src/led.c
 
 CFLAGS		= -I./lib
 

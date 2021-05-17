@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "random.h"
 
-#define MAX_SIZE 16
+#define MAX_SIZE 41
 
 typedef int boolean;
 
@@ -23,6 +23,6 @@ void enqueue(Queue* q, int data);
 int dequeue(Queue* q);
 int getSize(Queue* q);		// Get Queue size
 void printQueue(Queue* q);	// Print Queue data
-
+void clearQueue(Queue* q);	// Clear Queue
 #endif
 

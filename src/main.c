@@ -1,6 +1,13 @@
 //-------| src/main.c |-------//
 #include "main.h"
 
+static off_t IEB_DOT[MAX_DOT] = {
+	IEB_DOT1,
+	IEB_DOT2,
+	IEB_DOT3,
+	IEB_DOT4,
+	IEB_DOT5
+};
 
 static int fd;
 static int map_counter = 0;
@@ -8,6 +15,8 @@ static void * map_data[100];
 
 int main(int argc, char* argv[]) {
 	
+	int i;
+	short * led, * dot[MAX_DOT];
 	short * clcd_cmd, * clcd_data;
 	
 	fd = open("/dev/mem", O_RDWR|O_SYNC);
@@ -15,21 +24,26 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "Cannot open /dev/mem file");
 		exit(EXIT_FAILURE);
 	}
-	clcd_cmd  = mapper(IEB_CLCD_CMD);
-	clcd_data = mapper(IEB_CLCD_DATA);
+	led = mapper(IEB_LED, PROT_WRITE);
+	for( i=0; i<MAX_DOT; i++ ) {
+		dot[i] = mapper(IEB_DOT[i], PROT_WRITE); 
+	}
+	clcd_cmd  = mapper(IEB_CLCD_CMD, PROT_WRITE);
+	clcd_data = mapper(IEB_CLCD_DATA, PROT_WRITE); 
 
+	init_led(led);
+	init_dot(dot);
 	init_clcd(clcd_cmd, clcd_data);
-	
+
 	init_seed();
 	gameProgress();
-	
 	unmapper();
 	close(fd);
 	return 0;
 }
 
-short * mapper(off_t offset) {
-	map_data[map_counter] = mmap(NULL, sizeof(short), PROT_WRITE, MAP_SHARED, fd, offset);
+short * mapper(off_t offset, int prot) {
+	map_data[map_counter] = mmap(NULL, sizeof(short), prot, MAP_SHARED, fd, offset);
 	if ( map_data[map_counter] == MAP_FAILED ) {
 		fprintf(stderr, "Cannot do mmap()");
 		emergency_closer();
@@ -53,97 +67,44 @@ void emergency_closer() {
 
 error_t gameProgress() {
 	Queue* obstacles = init_queue();
-	for(int i = 0; i<15;i++){
-		enqueue(obstacles, '.');
+	create_obstacles(obstacles, 10);
+	write_obstacles(obstacles);
+	usleep(1000000);
+	int shift = 0;
+	for(shift; shift < 40; shift++){
+		dot_clear();
+		dot_write(shift % 2);
+		clcd_shift(1, 0);	
+		usleep(50000);
 	}
+	// while(1) 
+	// { 
+	// 	if(kbhit()) 
+	// 	{ 
+	// 			// 입력된 키정보 얻기. 
+	// 			key = _getch(); 
+	// 			switch (key)
+	// 			{
+	// 			case 'w':
+	// 			case 'W':
+	// 				shape = 74;
+	// 				break;
+	// 			case 's':
+	// 			case 'S':
+	// 				shape = 83;
 
-	clcd_entry_mode_set(1, 0);
-	clcd_set_DDRAM(0x00);
-	clcd_write_data('R');
-	clcd_set_DDRAM( 0x40 );
-	clcd_write_data('R');
-	int key;
-	int shape = 82; 
-	while(1) 
-	{ 
-		// 아무키나 눌렸다면 출력 후 종료. 
-		if(kbhit()) 
-		{ 
-				// 입력된 키정보 얻기. 
-				key = _getch(); 
-				switch (key)
-				{
-				case 'w':
-				case 'W':
-					shape = 74;
-					break;
-				case 's':
-				case 'S':
-					shape = 83;
-
-				default:
-					break;
-				}
-		}
-		else{
-			dequeue(obstacles);
-			enqueue(obstacles, show_obstacle());
-			int i = obstacles->front;
-			int cmd = 0;
-
-			switch (shape)
-			{
-			case 82:
-				clcd_set_DDRAM(0x00);
-				clcd_write_data('R');
-				clcd_set_DDRAM( 0x40 );
-				clcd_write_data('R');
-				break;
-			case 74:
-				clcd_set_DDRAM(0x00);
-				clcd_write_data('J');
-				clcd_set_DDRAM( 0x40 );
-				clcd_write_data(' ');
-				break;
-			case 83:
-				clcd_set_DDRAM(0x00);
-				clcd_write_data(' ');
-				clcd_set_DDRAM( 0x40 );
-				clcd_write_data('S');
-				break;
-			default:
-				break;
-			}
-			
-			do
-			{
-				i = (i + 1) % MAX_SIZE;
-				int c = obstacles->data[i];
-				if(c == '#'){
-					clcd_write_data(' ');
-					clcd_set_DDRAM(0x01 + cmd);
-					clcd_write_data(c);
-					clcd_set_DDRAM(0x41 + cmd + 1);
-				}
-				else{
-					clcd_set_DDRAM(0x01 + cmd);
-					clcd_write_data(' ');
-					clcd_set_DDRAM(0x41 + cmd);
-					clcd_write_data(c);
-				}
-				if(i == obstacles->rear)
-					break;
-				cmd++;
-			} while (i != obstacles->front);
-			shape = 82;
-			usleep(100000);
-		}
-	}		
+	// 			default:
+	// 				break;
+	// 			}
+	// 	}
+	// 	else{
+	// 	}
+	// }	
 	return SUCCESS;
 }
 
 int show_obstacle(){
-	int obstacle = create_obstacle();
+	int obstacle = make_obstacle();
 	switch (obstacle)
 	{
 	case 0:

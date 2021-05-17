@@ -13,6 +13,9 @@
 #include "ieb.h"
 #include "clcd.h"
 #include "utils.h"
+#include "game.h"
+#include "dot.h"
+#include "led.h"
 
 typedef enum {
 	FALSE = 0,
@@ -25,7 +28,7 @@ typedef enum {
 } error_t;
 
 int main(int argc, char* argv[]);
-short * mapper(off_t offset);
+short * mapper(off_t offset, int prot);
 void unmapper();
 void emergency_closer();
 

@@ -54,13 +54,19 @@ void printQueue(Queue* q){
 	}
 	else{
 		int i = q->front;
+		printf("Queue: ");
 		do
 		{
 			i = (i + 1) % MAX_SIZE;
-			printf("%c ", q->data[i]);
+			printf("%d ", q->data[i]);
 			if(i == q->rear)
 				break;
 		} while (i != q->front);
 		printf("\n");
 	}
+}
+
+void clearQueue(Queue* q){
+	free(q);
+	q = init_queue();
 }

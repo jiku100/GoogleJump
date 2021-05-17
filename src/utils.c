@@ -42,3 +42,21 @@ int _getch(void)
     tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);  // 원래의 설정으로 복구
     return c;
 }
+
+int max(int a, int b){
+  if(a > b){
+    return a;
+  }
+  else{
+    return b;
+  }
+}
+
+int min(int a, int b){
+  if(a < b){
+    return a;
+  }
+  else{
+    return b;
+  }
+}
