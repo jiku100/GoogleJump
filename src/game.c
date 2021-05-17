@@ -49,6 +49,8 @@ void write_obstacles(Queue* q){
         case 2:
             clcd_set_DDRAM(0x00 + cmd);
             clcd_write_data('#');
+            clcd_set_DDRAM(0x40 + cmd);
+            clcd_write_data('.');
             cmd++;
         default:
             break;
