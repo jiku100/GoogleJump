@@ -12,7 +12,7 @@ typedef struct Player{
 } Player;
 
 /****************** initiation *******************/
-Player* init_player(char name[]);  // Init Player class
+Player* init_player();  // Init Player class
 
 /******************  Setter **********************/
 void setName(Player* p, char name[]);   // Set player name

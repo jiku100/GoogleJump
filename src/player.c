@@ -1,7 +1,7 @@
 #include "player.h"
 
 /****************** initiation *******************/
-Player* init_player(char name[]){
+Player* init_player(){
     Player* p = (Player*)malloc(sizeof(Player));
     return p;
 }
