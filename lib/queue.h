@@ -4,10 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "random.h"
+#include "mytype.h"
 
 #define MAX_SIZE 41
-
-typedef int boolean;
 
 typedef struct circleQueue{
 	int front;

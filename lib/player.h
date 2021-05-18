@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 typedef struct Player{
     char name[20];
@@ -31,5 +32,5 @@ int getLift(Player* p);     // Get player life
 void liftDown(Player* p);   // Life down
 void addScore(Player* p, int score);    // Add score
 void nextScore(Player* p);  // Next stage
-
+void printPlayerInfo(Player* p);    // Print Player info
 #endif

@@ -3,6 +3,10 @@
 /****************** initiation *******************/
 Player* init_player(){
     Player* p = (Player*)malloc(sizeof(Player));
+    strcpy(p->name, "None");
+    p->stage = 0;
+    p->score = 0;
+    p->life = 0;
     return p;
 }
 
@@ -51,4 +55,10 @@ void addScore(Player* p, int score){
 }
 void nextScore(Player* p){
     p->stage++;
+}
+void printPlayerInfo(Player* p){
+    printf("\nName: %s\n", p->name);
+    printf("Stage: %d\n", p->stage);
+    printf("Score: %d\n", p->score);
+    printf("Life: %d\n", p->life);    
 }

@@ -18,16 +18,8 @@
 #include "led.h"
 #include "keypad.h"
 #include "player.h"
-
-typedef enum {
-	FALSE = 0,
-	TRUE  = 1
-} truth_t;
-
-typedef enum {
-	ERROR	= -1,
-	SUCCESS	= 0
-} error_t;
+#include "mytype.h"
+#include "argument.h"
 
 int main(int argc, char* argv[]);
 short * mapper(off_t offset, int prot);

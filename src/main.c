@@ -14,18 +14,13 @@ static int map_counter = 0;
 static void * map_data[100];
 
 int main(int argc, char* argv[]) {
-	char* name = "SeokGyeong";
-	int stage = 10;
-	int score = 250000;
-	int life = 3;
-	Player* p1 = init_player();
-	setAll(p1, name, stage, score, life);
-
-	printf("%s\n", p1->name);
-	printf("%d\n", p1->stage);
-	printf("%d\n", p1->score);
-	printf("%d\n", p1->life);
-
+	Player* p;
+	if(setPlayer(&p, argc, argv)){
+		printPlayerInfo(p);
+	}
+	else{
+		printf("ERROR!!\n");
+	}
 	// int i;
 	// short * led, * dot[MAX_DOT];
 	// short * clcd_cmd, * clcd_data;

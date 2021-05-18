@@ -10,7 +10,9 @@ SRCS		= ./src/main.c \
 				./src/dot.c\
 				./src/led.c\
 				./src/keypad.c\
-				./src/player.c
+				./src/player.c\
+				./src/fnd.c\
+				./src/argument.c
 
 CFLAGS		= -I./lib
 
@@ -26,5 +28,6 @@ xim : $(SRCS)
 	xim_PATH="$(PWD)" xim_SRCS="$(SRCS)" xim_CFLAGS="$(CFLAGS)"
 
 clean:
+	@rm -f test
 	@rm -f $(OUTPUT)
 	@rm -f xim_$(OUTPUT)
