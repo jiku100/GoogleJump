@@ -14,31 +14,30 @@ static int map_counter = 0;
 static void * map_data[100];
 
 int main(int argc, char* argv[]) {
+	// int i;
+	// short * led, * dot[MAX_DOT];
+	// short * clcd_cmd, * clcd_data;
 	
-	int i;
-	short * led, * dot[MAX_DOT];
-	short * clcd_cmd, * clcd_data;
-	
-	fd = open("/dev/mem", O_RDWR|O_SYNC);
-	if (fd == -1) {
-		fprintf(stderr, "Cannot open /dev/mem file");
-		exit(EXIT_FAILURE);
-	}
-	led = mapper(IEB_LED, PROT_WRITE);
-	for( i=0; i<MAX_DOT; i++ ) {
-		dot[i] = mapper(IEB_DOT[i], PROT_WRITE); 
-	}
-	clcd_cmd  = mapper(IEB_CLCD_CMD, PROT_WRITE);
-	clcd_data = mapper(IEB_CLCD_DATA, PROT_WRITE); 
+	// fd = open("/dev/mem", O_RDWR|O_SYNC);
+	// if (fd == -1) {
+	// 	fprintf(stderr, "Cannot open /dev/mem file");
+	// 	exit(EXIT_FAILURE);
+	// }
+	// led = mapper(IEB_LED, PROT_WRITE);
+	// for( i=0; i<MAX_DOT; i++ ) {
+	// 	dot[i] = mapper(IEB_DOT[i], PROT_WRITE); 
+	// }
+	// clcd_cmd  = mapper(IEB_CLCD_CMD, PROT_WRITE);
+	// clcd_data = mapper(IEB_CLCD_DATA, PROT_WRITE); 
 
-	init_led(led);
-	init_dot(dot);
-	init_clcd(clcd_cmd, clcd_data);
+	// init_led(led);
+	// init_dot(dot);
+	// init_clcd(clcd_cmd, clcd_data);
 
-	init_seed();
-	gameProgress();
-	unmapper();
-	close(fd);
+	// init_seed();
+	// gameProgress();
+	// unmapper();
+	// close(fd);
 	return 0;
 }
 

@@ -16,6 +16,7 @@
 #include "game.h"
 #include "dot.h"
 #include "led.h"
+#include "keypad.h"
 
 typedef enum {
 	FALSE = 0,
