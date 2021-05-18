@@ -8,7 +8,8 @@ SRCS		= ./src/main.c \
 				./src/utils.c\
 				./src/game.c\
 				./src/dot.c\
-				./src/led.c
+				./src/led.c\
+				./src/keypad.c
 
 CFLAGS		= -I./lib
 

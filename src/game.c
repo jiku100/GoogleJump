@@ -28,13 +28,12 @@ void create_obstacles(Queue* q, int stage){
 
 void write_obstacles(Queue* q){
     int cmd = 0;
-    int i = q->front;
+    int obstacle = 0;
+    int size = q->size;
 
-    do
-    {
-        i = (i + 1) % MAX_SIZE;
-        int c = q->data[i];
-        switch (c)
+    for(cmd; cmd < size; cmd){
+        obstacle = dequeue(q);
+        switch (obstacle)
         {
         case 0:
             clcd_set_DDRAM(0x40 + cmd);
@@ -55,7 +54,5 @@ void write_obstacles(Queue* q){
         default:
             break;
         }
-        if(i == q->rear)
-            break;
-    } while (i != q->front);
+    }
 }
