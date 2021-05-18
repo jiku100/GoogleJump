@@ -7,6 +7,10 @@ void init_led(short * address) {
 	led = address;
 }
 
+void led_set(int life){
+	*led = (short)~((unsigned long)0xFF00 >> 2 * life);
+}
+
 void led_down_shift() {
 	
 	int i;
