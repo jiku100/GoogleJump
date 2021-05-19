@@ -92,14 +92,14 @@ Player* append(Player* head, Player* node){
 	return head;
 }
 
-void printPlayerList(Player* head){
+void printPlayerList(Player* head, FILE* fp){
     if (head == NULL) {
 		printf("There is no node!!\n");
 	}
 	else {
 		while(head != NULL)
 		{
-			printf("%s\t%d\t%d\t%d\n", head->name, head->stage, head->score, head->life);
+			fprintf(fp, "%-20s\t%-5d\t%-15d\t%-2d\n", head->name, head->stage, head->score, head->life);
 			head = head->next;
 		}
 	}

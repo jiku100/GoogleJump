@@ -12,7 +12,8 @@ SRCS		= ./src/main.c \
 				./src/keypad.c\
 				./src/player.c\
 				./src/fnd.c\
-				./src/argument.c
+				./src/argument.c\
+				./src/save.c
 
 CFLAGS		= -I./lib
 

@@ -38,5 +38,5 @@ void printPlayerInfo(Player* p);    // Print Player info
 /**************** Linked List ********************/
 Player* create_node(char name[], int stage, int score, int life);   // create Node
 Player* append(Player* head, Player* node); // append Node
-void printPlayerList(Player* head); // print player list;
+void printPlayerList(Player* head, FILE* fp); // print player list;
 #endif

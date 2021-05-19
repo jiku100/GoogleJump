@@ -14,13 +14,9 @@ static int map_counter = 0;
 static void * map_data[100];
 
 int main(int argc, char* argv[]) {
-	Player* p;
-	if(setPlayer(&p, argc, argv)){
-		printPlayerInfo(p);
-	}
-	else{
-		printf("ERROR!!\n");
-	}
+	Player* head = read_savefile();
+	printPlayerList(head, stdout);
+
 	// int i;
 	// short * led, * dot[MAX_DOT];
 	// short * clcd_cmd, * clcd_data;

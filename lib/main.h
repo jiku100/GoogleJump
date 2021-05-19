@@ -20,6 +20,7 @@
 #include "player.h"
 #include "mytype.h"
 #include "argument.h"
+#include "save.h"
 
 int main(int argc, char* argv[]);
 short * mapper(off_t offset, int prot);
