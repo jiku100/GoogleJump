@@ -1,7 +1,5 @@
 //-------| src/keypad.c |-------//
 #include "keypad.h"
-#include <stdio.h>
-#include <string.h>
 
 static short * keypad_out, * keypad_in;
 
@@ -18,7 +16,7 @@ void init_keypad(short * address_out, short * address_in) {
 int keyboard_read(int* key_value){
 	int key_count = 0;
 	char buf[10];
-	scanf("%s", buf);
+	buf[0] = _getch();
 	key_count = strlen(buf);
 	if(key_count == 0){
 		return key_count;

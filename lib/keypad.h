@@ -6,6 +6,9 @@
 #define MAX_KEY_COL	4
 #define MAX_KEY_ROW	4
 
+#include <stdio.h>
+#include <string.h>
+#include <utils.h>
 
 void init_keypad(short * address_out, short * address_in) ;
 int keyboard_read(int* key_value);
