@@ -48,7 +48,7 @@ void fnd_dec_number(unsigned long number) {
 	for(i=0; i<MAX_FND; i++){
 		write_number = number % 10;
 		if(write_number == 0){
-			fnd_write((short)(11), i);
+			fnd_write((short)(10), i);
 		}
 		else{
 			fnd_write( (short)(write_number), i);
