@@ -26,10 +26,5 @@ int main(int argc, char* argv[]);
 short * mapper(off_t offset, int prot);
 void unmapper();
 void emergency_closer();
-
-error_t gameProgress();
-int show_obstacle();
 void error();
-truth_t inputter();
-
 #endif
