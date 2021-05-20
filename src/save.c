@@ -33,6 +33,7 @@ error_t write_savefile(Player* head){
     fclose(out);
     system("mv ./savefile/tmp.txt ./savefile/savefile.txt");
 }
+
 void makeSaveDir(){
     int r = 0;
     r = access("./savefile", F_OK);
@@ -41,3 +42,25 @@ void makeSaveDir(){
     }
 }
 
+Player* search_player(Player* head, char name[]){
+    if (head == NULL) {
+	    head = append(head, create_node(name, 0, 0, 4));
+        return head;
+	}
+	else {
+        do
+        {
+            if(strcmp(head->name, name) == 0){
+                return head;
+            }
+            if(head->next == NULL){
+                head = append(head, create_node(name, 0, 0, 4));
+                head = head->next;
+                return head;
+            }
+            else{
+                head = head->next;
+            }
+        } while (head != NULL);
+	}
+}

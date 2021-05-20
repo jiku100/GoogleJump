@@ -16,7 +16,12 @@ static void * map_data[100];
 int main(int argc, char* argv[]) {
 	Player* head = read_savefile();
 	printPlayerList(head, stdout);
-
+	Player* player = search_player(head, "HyunJun");
+	printPlayerInfo(player);
+	setStage(player, 3);
+	setLife(player, 2);
+	printPlayerList(head, stdout);
+	write_savefile(head);
 	// int i;
 	// short * led, * dot[MAX_DOT];
 	// short * clcd_cmd, * clcd_data;
