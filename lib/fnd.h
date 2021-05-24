@@ -10,8 +10,8 @@
 void init_fnd(short * address[]);
 void fnd_clear();
 void fnd_all();
-void fnd_write(int hexadecimal, int fnd_num);
-void fnd_hexa_number(unsigned long number);
+void fnd_write(int decimal, int fnd_num);
+void fnd_dec_number(unsigned long number);
 
 
 #endif

@@ -57,12 +57,55 @@ void write_obstacles(Queue* q){
     }
 }
 
-error_t gameProgress(Queue* obstacles, Player* p, int stage, int speed) {
+int getSpeed(int stage){
+    int speed = 100000 * (powf(4, powf(0.85, stage)) + 2);
+    return speed;
+}
+
+void printGameStart(){
+    char* str = "  Game Start!! ";
+    clcd_set_DDRAM(0x00);
+    clcd_write_string(str);
+    usleep(0);
+}
+
+void printStage(int stage){
+    static char str[15] = "    Stage 01  ";
+    str[10] = stage/10 + '0';
+    str[11] = stage%10 + '0';
+    clcd_set_DDRAM(0x00);
+    clcd_write_string(str);
+    usleep(0);
+}
+
+void printStageClear(){
+    char* str = "  Stage Clear!! ";
+    clcd_set_DDRAM(0x00);
+    clcd_write_string(str);
+    usleep(0);
+}
+
+void printGameEnd(){
+    char* str = "   Game End!! ";
+    clcd_set_DDRAM(0x00);
+    clcd_write_string(str);
+    usleep(0);
+}
+
+void printCompleteSave(){
+    char* str = " Save Complete!! ";
+    clcd_set_DDRAM(0x00);
+    clcd_write_string(str);
+    usleep(0);
+}
+
+state_t gameProgress(Queue* obstacles, Player* p, int stage, int speed, int* score, int* life) {
 	create_obstacles(obstacles, stage);
     int front = obstacles->front;
     int rear = obstacles->rear;
 	write_obstacles(obstacles);
-    led_set(p->life);
+    fnd_dec_number(*score);
+    led_set(*life);
 	usleep(1000000);
 	int shift = 0;
     int key_count, key_value;
@@ -72,21 +115,58 @@ error_t gameProgress(Queue* obstacles, Player* p, int stage, int speed) {
         dot_clear();
         if(kbhit()){
             key_count = keyboard_read(&key_value);
-            switch (key_value)
+            switch (obstacles->data[front])
             {
-            case 5:
-                dot_write(2);
+            case 1:
+                if(key_value == 5){
+                    dot_write(5);
+                    *score += (80 + 20 * stage);
+                    fnd_dec_number(*score);
+                }
+                else{
+                    dot_write(4);
+                    (*life)--;
+                    led_set(*life);
+                    if(*life == 0){
+                        return FAIL;
+                    }
+                }
                 break;
-            case 9:
-                dot_write(3);
+
+            case 2:
+                if(key_value == 9){
+                    dot_write(9);
+                    *score += (80 + 20 * stage);
+                    fnd_dec_number(*score);
+                }
+                else{
+                    dot_write(4);
+                    (*life)--;
+                    led_set(*life);
+                    if(*life == 0){
+                        return FAIL;
+                    }
+                }
+
+            default:
+                if(key_value == 5 || key_value == 9){
+                    dot_write(key_value);
+                }
+                else{
+                    dot_write(action % 2);
+                    action++;
+                }        
                 break;
-            }
+            }  
         }
         else{
             if(obstacles->data[front] == 1 || obstacles->data[front] == 2){
                 dot_write(4);
-                p->life--;
-                led_set(p->life);
+                (*life)--;
+                led_set(*life);
+                if(*life == 0){
+                        return FAIL;
+                }
             }
             else{
                 dot_write(action % 2);
@@ -94,19 +174,53 @@ error_t gameProgress(Queue* obstacles, Player* p, int stage, int speed) {
             }
         }
 		clcd_shift(1, 0);	
-		usleep(1000000);
+		usleep(speed);
 	}
-	return SUCCESS;
+	return CLEAR;
 }
 
-error_t mainGame(){
+error_t mainGame(char* name){
     Queue* obstacles = init_queue();
     Player* head = NULL;
-    Player* p = search_player(head, "SeokGyeong");
-    gameProgress(obstacles, p, 10, 1);
+    head = read_savefile();
+    Player* p = NULL;
+    if (head == NULL){
+        p = create_node(name, 0, 0, 4);
+        head = append(head, p);
+    }
+    else{
+        p = search_player(head, name);
+    }
+
+    int stage = 1;
+    int score = 0;
+    int life = 4;
+    printGameStart();
+    usleep(2000000);
+    for(stage;;stage++){
+        clcd_clear_display();
+        printStage(stage);
+        usleep(1500000);
+        clcd_clear_display();
+        if(gameProgress(obstacles, p, stage, getSpeed(stage), &score, &life) == FAIL){
+            break;
+        }
+        clcd_clear_display();
+        printStageClear();
+        usleep(1000000);
+    }
     usleep(1000000);
     clcd_clear_display();
+    printGameEnd();
+    if(p->stage < stage){
+        setStage(p, stage);
+    }
+    if(p->score < score){
+        setScore(p, score);
+    }
+    setLife(p, life);
+    write_savefile(head);
     usleep(1000000);
-    gameProgress(obstacles, p, 10, 2);
-
+    printCompleteSave();
+    usleep(1000000);
 }

@@ -13,4 +13,10 @@ typedef enum {
 	SUCCESS	= 1
 } error_t;
 
+
+typedef enum{
+	FAIL  = 0,
+	CLEAR = 1
+} state_t;
+
 #endif

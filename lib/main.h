@@ -7,6 +7,7 @@
 #include <sys/mman.h>	// mmap(), munmap()
 #include <stdlib.h> 	// exit()
 #include <string.h>		// strlen()
+#include <math.h>
 
 #include "random.h"
 #include "queue.h"
@@ -21,6 +22,7 @@
 #include "mytype.h"
 #include "argument.h"
 #include "save.h"
+#include "fnd.h"
 
 int main(int argc, char* argv[]);
 short * mapper(off_t offset, int prot);

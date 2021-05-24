@@ -4,19 +4,19 @@ Player* read_savefile(){
     char* originalSaveFilePath = "./savefile/savefile.txt";
     FILE* in;
     if((in = fopen(originalSaveFilePath, "r")) == NULL){
-        Player* head = create_node("None", 0, 0, 0);
-        return head;
+        return NULL;
     }
     Player* head = NULL;
-    char line[50];
+    char line[60];
     char name[20];
     int stage, score, life;
 
-    fgets(line, 50, in);
+    fgets(line, 60, in);
+    fgets(line, 60, in);
     while (!feof(in)) {
 		sscanf(line, "%20s\t%5d\t%15d\t%2d", name, &stage, &score, &life);
 		head = append(head, create_node(name, stage, score, life));
-        fgets(line, 50, in);
+        fgets(line, 60, in);
 	}
     return head;
 }
@@ -29,6 +29,7 @@ error_t write_savefile(Player* head){
         printf("Can't open %s file\n", tempSaveFilePath);
         exit(1);
     }
+	fprintf(out, "   %-19s%-8s%-17s%-5s\n", "Name", "Stage", "Score", "life");
     printPlayerList(head, out);
     fclose(out);
     system("mv ./savefile/tmp.txt ./savefile/savefile.txt");
