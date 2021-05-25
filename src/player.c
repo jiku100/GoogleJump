@@ -6,7 +6,6 @@ Player* init_player(){
     strcpy(p->name, "None");
     p->stage = 0;
     p->score = 0;
-    p->life = 0;
     p->next = NULL;
     return p;
 }
@@ -21,14 +20,10 @@ void setStage(Player* p, int stage){
 void setScore(Player* p, int score){
     p->score = score;
 }
-void setLife(Player* p, int life){
-    p->life = life;
-}
 void setAll(Player* p, char name[], int stage, int score, int life){
     setName(p, name);
     setStage(p, stage);
     setScore(p, score);
-    setLife(p, life);
 }
 
 /******************  Getter **********************/
@@ -43,14 +38,8 @@ int getStage(Player* p){
 int getScore(Player* p){
     return p->score;
 }
-int getLife(Player* p){
-    return p->life;
-}
 
 /****************** Actions **********************/
-void lifeDown(Player* p){
-    p->life--;
-}
 void addScore(Player* p, int score){
     p->score += score;
 }
@@ -61,16 +50,14 @@ void printPlayerInfo(Player* p){
     printf("\nName: %s\n", p->name);
     printf("Stage: %d\n", p->stage);
     printf("Score: %d\n", p->score);
-    printf("Life: %d\n", p->life);    
 }
 
 /**************** Linked List ********************/
-Player* create_node(char name[], int stage, int score, int life){
+Player* create_node(char name[], int stage, int score){
     Player* node = (Player*)malloc(sizeof(Player));
 	setName(node, name);
     setStage(node, stage);
     setScore(node, score);
-    setLife(node, life);
     node->next = NULL;
 	return node;
 }
@@ -99,7 +86,7 @@ void printPlayerList(Player* head, FILE* fp){
 	else {
 		while(head != NULL)
 		{
-			fprintf(fp, "%-20s\t%-5d\t%-15d\t%-2d\n", head->name, head->stage, head->score, head->life);
+			fprintf(fp, "%-17s%3d%13d\n", head->name, head->stage, head->score);
 			head = head->next;
 		}
 	}

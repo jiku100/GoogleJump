@@ -9,13 +9,13 @@ Player* read_savefile(){
     Player* head = NULL;
     char line[60];
     char name[20];
-    int stage, score, life;
+    int stage, score;
 
     fgets(line, 60, in);
     fgets(line, 60, in);
     while (!feof(in)) {
-		sscanf(line, "%20s\t%5d\t%15d\t%2d", name, &stage, &score, &life);
-		head = append(head, create_node(name, stage, score, life));
+		sscanf(line, "%17s%3d%13d", name, &stage, &score);
+		head = append(head, create_node(name, stage, score));
         fgets(line, 60, in);
 	}
     return head;
@@ -29,7 +29,7 @@ error_t write_savefile(Player* head){
         printf("Can't open %s file\n", tempSaveFilePath);
         exit(1);
     }
-	fprintf(out, "   %-19s%-8s%-17s%-5s\n", "Name", "Stage", "Score", "life");
+	fprintf(out, "%7s%15s%14s\n", "Name", "Stage", "Score");
     printPlayerList(head, out);
     fclose(out);
     system("mv ./savefile/tmp.txt ./savefile/savefile.txt");
@@ -45,7 +45,7 @@ void makeSaveDir(){
 
 Player* search_player(Player* head, char name[]){
     if (head == NULL) {
-	    head = append(head, create_node(name, 0, 0, 4));
+	    head = append(head, create_node(name, 0, 0));
         return head;
 	}
 	else {
@@ -55,7 +55,7 @@ Player* search_player(Player* head, char name[]){
                 return head;
             }
             if(head->next == NULL){
-                head = append(head, create_node(name, 0, 0, 4));
+                head = append(head, create_node(name, 0, 0));
                 head = head->next;
                 return head;
             }

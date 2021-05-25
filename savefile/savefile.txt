@@ -1,5 +1,3 @@
-   Name               Stage   Score            life 
-SeokGyeong          	1    	0              	4 
-ChanJin             	3    	640            	4 
-HyunJun             	2    	320            	4 
-JiEun               	1    	0              	4 
+   Name          Stage     Score
+HyunJun            7         4480
+ChanJin            1            0

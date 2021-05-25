@@ -185,7 +185,7 @@ error_t mainGame(char* name){
     head = read_savefile();
     Player* p = NULL;
     if (head == NULL){
-        p = create_node(name, 0, 0, 4);
+        p = create_node(name, 0, 0);
         head = append(head, p);
     }
     else{
@@ -218,7 +218,6 @@ error_t mainGame(char* name){
     if(p->score < score){
         setScore(p, score);
     }
-    setLife(p, life);
     write_savefile(head);
     usleep(1000000);
     printCompleteSave();
