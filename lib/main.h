@@ -20,7 +20,6 @@
 #include "keypad.h"
 #include "player.h"
 #include "mytype.h"
-#include "argument.h"
 #include "save.h"
 #include "fnd.h"
 

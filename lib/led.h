@@ -7,7 +7,7 @@
 
 
 void init_led(short * address);
-void led_set(int life);
+void led_set(int life); // Set led accoring life
 void led_down_shift();
 void led_up_shift();
 void led_blink_all();

@@ -25,7 +25,7 @@ static int map_counter = 0;
 static void * map_data[100];
 
 int main(int argc, char* argv[]) {
-	if(argc != 2){
+	if(argc != 2){	// 이름이 입력이 안되면 프로그램 종료
 		fprintf(stderr, "Please Input Your Name!!");
 		return 0;
 	}
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 		init_clcd(clcd_cmd, clcd_data);
 		init_fnd(fnd);
 		init_seed();
-		mainGame(argv[1]);
+		mainGame(argv[1]);	// 이름에 해당하는 부분을 argument로 넘김
 		unmapper();
 		close(fd);
 		return 0;

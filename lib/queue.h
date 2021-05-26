@@ -8,6 +8,7 @@
 
 #define MAX_SIZE 41
 
+// To store obstacles array, Implement circleQueue
 typedef struct circleQueue{
 	int front;
 	int rear;

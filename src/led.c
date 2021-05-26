@@ -7,8 +7,9 @@ void init_led(short * address) {
 	led = address;
 }
 
+/* 목숨에 따라 led setting */
 void led_set(int life){
-	*led = (short)~((unsigned long)0xFF00 >> 2 * life);
+	*led = (short)~((unsigned long)0xFF00 >> 2 * life);	// 한 목숨 당 2칸이 감소
 }
 
 void led_down_shift() {

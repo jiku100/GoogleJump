@@ -5,6 +5,9 @@
 #include <string.h>
 #include <stdio.h>
 
+/**************** Player sturct **************/
+// implement Player struct as Linked List node
+
 typedef struct Player{
     char name[20];
     int stage;
@@ -27,7 +30,6 @@ int getStage(Player* p);    // Get player stage
 int getScore(Player* p);    // Get player score
 
 /****************** Actions **********************/
-void lifeDown(Player* p);   // Life down
 void addScore(Player* p, int score);    // Add score
 void nextScore(Player* p);  // Next stage
 void printPlayerInfo(Player* p);    // Print Player info

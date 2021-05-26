@@ -25,7 +25,7 @@ void enqueue(Queue* q, int data){
 		printf("Queue is full \n");
 	}
 	else{
-		q->rear = (q->rear + 1) % MAX_SIZE;
+		q->rear = (q->rear + 1) % MAX_SIZE;	// 원형 큐의 enqueue 방식
 		q->data[q->rear] = data;
 		q->size++;
 	}

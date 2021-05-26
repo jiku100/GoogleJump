@@ -7,10 +7,10 @@
 #include "mytype.h"
 #include <string.h>
 
-Player* read_savefile();
-error_t write_savefile(Player* head);
-Player* search_player(Player* head, char* name);
-void makeSaveDir();
+Player* read_savefile();        // Read players info from savefile
+error_t write_savefile(Player* head);   // Write players info in savefile
+Player* search_player(Player* head, char* name);    // Find certain player info from Linked List
+void makeSaveDir(); // Make Save directory
 
 
 

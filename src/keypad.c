@@ -16,7 +16,7 @@ void init_keypad(short * address_out, short * address_in) {
 int keyboard_read(int* key_value){
 	int key_count = 0;
 	char buf[10];
-	buf[0] = _getch();
+	buf[0] = _getch();		// usleep 사이에 문자를 입력 받기 위해 getch() 사용
 	key_count = strlen(buf);
 	if(key_count == 0){
 		return key_count;

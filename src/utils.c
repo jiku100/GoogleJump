@@ -1,15 +1,16 @@
 #include "utils.h"
 
+/* 키 입력을 확인하는 함수 */
 int kbhit(void)
 {
   struct termios oldt, newt;
   int ch;
   int oldf;
  
-  tcgetattr(STDIN_FILENO, &oldt);
+  tcgetattr(STDIN_FILENO, &oldt); // 현재 터미널 설정 읽음
   newt = oldt;
-  newt.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+  newt.c_lflag &= ~(ICANON | ECHO); // CANONICAL과 ECHO 끔
+  tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // 터미널에 설정 입력
   oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
   fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
  

@@ -16,16 +16,16 @@
 
 #define OBSTACLE_NUMBERS_OF_CASE 3
 
-int make_obstacle(void);	// create obstacle function
-void create_obstacles(Queue* q, int stage);
-void write_obstacles(Queue* q);
-int getSpeed(int stage);
-void printGameStart();
-void printStage(int stage);
-void printStageClear();
-void printGameEnd();
-void printCompleteSave();
-state_t gameProgress(Queue* obstacles, Player* p, int stage, int speed, int* score, int* life);
-error_t mainGame();
+int make_obstacle(void);	// create obstacle
+void create_obstacles(Queue* q, int stage); // create obstacle queue
+void write_obstacles(Queue* q); // write obstacles in clcd
+int getSpeed(int stage);    // get Speed accoring stage
+void printGameStart();      // print Game start message in clcd
+void printStage(int stage); // print Stage message in clcd
+void printStageClear();     // print Stage clear message in clcd
+void printGameEnd();        // print Game end message in clcd
+void printCompleteSave();   // print Save complete message in clcd
+state_t gameProgress(Queue* obstacles, Player* p, int stage, int speed, int* score, int* life); // Stage game process
+error_t mainGame();     // Main game process
 
 #endif

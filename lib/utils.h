@@ -6,9 +6,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int kbhit(void);
-int _getch(void);
-int max(int a, int b);
-int min(int a, int b);
+int kbhit(void);    // get Keyboard input
+int _getch(void);   // implemnet getch() function in Ubuntu
+int max(int a, int b);  // max function
+int min(int a, int b);  // min function
 
 #endif
