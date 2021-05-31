@@ -199,7 +199,7 @@ error_t mainGame(char* name){
         p = create_node(name, 0, 0);    // name을 가지는 새로운 node 생성
         head = append(head, p); // head에 추가
     }
-    else{   // sabefile이 비지 않았으면
+    else{   // savefile이 비지 않았으면
         p = search_player(head, name);  // head로부터 name을 가지느 node 찾아서 해당 위치 p에 저장
     }
 
